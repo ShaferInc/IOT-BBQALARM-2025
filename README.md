@@ -4,7 +4,8 @@
 
 This project walks you through creating a Wi-Fi-connected thermometer for your grill. Using a Raspberry Pi Pico W and a K-Type thermocouple, this device will measure the internal temperature of your grill and send the data to a cloud-based dashboard. This allows you to monitor your grill's temperature remotely from your phone or computer, ensuring your food is cooked to perfection every time.
 
-Project overview: Building a device to measure grill temperature and notify users.
+### Project overview: 
+Building a device to measure grill temperature and notify users.
 Time to complete: 2-3 hours
 Cost: $30-50
 
@@ -12,7 +13,7 @@ Cost: $30-50
 
 The main goal of this project is to create a reliable and accurate way to monitor the temperature of a grill remotely.
 
-    Why this project? Have you ever undercooked or overcooked your food on the grill? This project solves that problem by providing precise temperature readings sent directly to a device of your choice. It's a practical application of IoT technology that can improve your cooking skills.
+    Why this project? Have you ever undercooked or overcooked your food on the grill? This project solves that problem by providing temperature readings sent directly to a device of your choice. It's a practical application of IoT technology that can improve your cooking skills.
 
     Purpose: The device will read the high temperatures inside a grill, which standard food thermometers can't withstand for long periods. It will then transmit this data over Wi-Fi to a cloud platform.
 
@@ -24,38 +25,37 @@ Here is a list of the components needed for this project.
 
     Raspberry Pi Pico W with Pre-Soldered Headers: This is the microcontroller that will serve as the brain of our project. It has built-in Wi-Fi, which is perfect for our IoT application.
 
-        Where to buy: Adafruit, SparkFun, or Amazon.
+        Where to buy: Amazon
 
-        Cost: Approximately $10 - $15.
+        Cost: $10 - $15.
 
-    HiLetgo MAX6675 Module + K-Type Thermocouple: The K-Type thermocouple is a sensor capable of measuring a wide range of temperatures (0°C to 500°C for this model), making it ideal for a grill. The MAX6675 module is an amplifier that converts the thermocouple's analog signal into a digital one that our Pico W can read.
+    HiLetgo MAX6675 Module + K-Type Thermocouple: The K-Type thermocouple is a sensor capable of measuring a wide range of temperatures (0°C to 500°C for this model), making it ideal for a grill. The MAX6675 module is an amplifier that converts the thermocouple's analog signal into a digital one that our Pico W can read. WARNING-Frequently Faulty
 
-        Where to buy: Amazon, AliExpress.
+        Where to buy: Amazon
 
-        Cost: Approximately $5 - $10.
+        Cost: $5 - $10.
 
     Yunsailing Type K Thermocouple Probe: This is the specific probe that will be placed inside the grill to measure the heat.
 
-        Where to buy: Amazon.
+        Where to buy: Amazon
 
-        Cost: Approximately $8 - $12.
+        Cost: $8 - $12.
 
     Solderless Breadboard and Jumper Wires: These will be used to connect all the electronic components without needing to solder.
 
-        Where to buy: Included in most electronics starter kits on Amazon or SparkFun.
+        Where to buy: Included in most electronics starter kits on Amazon.
 
-        Cost: Approximately $10 - $15 for a kit.
+        Cost: $10 - $15 for a kit.
 
     Micro USB Cable: To connect the Raspberry Pi Pico W to your computer for programming and power.
 
-Component
-	
+## Computer Setup
 
 To program the Raspberry Pi Pico W, we'll use the Thonny IDE, which is a beginner-friendly Python editor.
 
     Install Thonny IDE: Download and install Thonny from the official website (thonny.org). It's available for Windows, Mac, and Linux.
 
-    Flash MicroPython Firmware:
+### Flash MicroPython Firmware:
 
         Download the latest MicroPython firmware for the Raspberry Pi Pico W. Go to the MicroPython downloads page and download the .uf2 file.
 
@@ -63,17 +63,17 @@ To program the Raspberry Pi Pico W, we'll use the Thonny IDE, which is a beginne
 
         Drag and drop the downloaded .uf2 file onto the RPI-RP2 drive. The Pico will automatically reboot and will now be running MicroPython.
 
-    Configure Thonny:
+### Configure Thonny:
 
-        Open Thonny. Go to Tools > Options.
+        Open Thonny. Go to Tools -> Options.
 
         In the Interpreter tab, select MicroPython (Raspberry Pi Pico) as the interpreter.
 
         The port should be detected automatically. If not, try reconnecting your Pico.
 
-    Install the MAX6675 Library:
+### Install the MAX6675 Library:
 
-        In Thonny, go to Tools > Manage packages.
+        In Thonny, go to Tools -> Manage packages.
 
         Search for micropython-max6675 and click Install. This library will make it easy to read data from our temperature sensor.
 
@@ -101,6 +101,8 @@ Finally, connect the two pins from the K-Type thermocouple to the screw terminal
 
 Here is a diagram to help you visualize the connections:
 
+# TO DO !!!
+
 This setup is intended for development and prototyping. For a production version, you would want to solder the components onto a permanent protoboard and place the Pico W and MAX6675 module in a protective case to shield them from the elements and the heat of the grill.
 
 ## Platform
@@ -115,13 +117,12 @@ For this project, we'll use Adafruit as our IoT platform. It's a great choice fo
 
 The code for this project is written in MicroPython. The core functionalities are connecting to your Wi-Fi network, reading the temperature from the sensor, and sending it to Adafruit.
 
-You can find the complete code in this repository: [Link to your GitHub repository here]
+You can find the complete code in this repository.
 
 Here is a snippet of the core logic:
-Python
 
+```Python
 # main.py
-
 import machine
 import time
 import urequests
@@ -133,7 +134,6 @@ WIFI_SSID = "YOUR_WIFI_SSID"
 WIFI_PASS = "YOUR_WIFI_PASSWORD"
 TOKEN = "YOUR_Adafruit_TOKEN" 
 DEVICE_LABEL = "grill-thermometer"
-VARIABLE_LABEL = "temperature"
 
 # --- Pin Definitions ---
 sck = machine.Pin(10, machine.Pin.OUT)
@@ -180,6 +180,8 @@ while True:
         print(f"Error: {e}")
 
     time.sleep(30) # Send data every 30 seconds
+```
+## Code Walk Through
 
 This code first sets up the Wi-Fi connection and initializes the temperature sensor. Then, in an infinite loop, it reads the temperature, converts it to Fahrenheit, and sends it to Adafruit in a JSON format.
 
@@ -191,7 +193,7 @@ Transmitting the Data / Connectivity
 
     Transport Protocol: The data is sent using an HTTP POST request (a webhook) to the Adafruit API. This is a simple and reliable way to send data to a web service. For a more advanced setup, MQTT would be a more efficient choice, as it is a lightweight messaging protocol designed for IoT devices and can reduce battery consumption. However, for this project, the simplicity of HTTP is sufficient.
 
-Presenting the Data
+## Presenting the Data
 
 The data sent to Adafruit can be visualized on a custom dashboard.
 
@@ -201,19 +203,21 @@ The data sent to Adafruit can be visualized on a custom dashboard.
 
     Automation/Triggers: Adafruit allows you to create triggers. For example, you can set up a rule to send you an email or a push notification when the temperature variable exceeds a certain value (e.g., 350°F), letting you know the grill is preheated and ready for cooking.
 
-Example Dashboard:
+## Example Dashboard:
 
 Here is what your dashboard could look like in Adafruit:
 
-Finalizing the Design
+# TO DO !!!
+
+## Finalizing the Design
 
 This project successfully creates a functional smart grill thermometer. The final step is to assemble it in a way that is practical to use.
 
-Final Product:
+## Final Product:
 
 For a more polished final product, you could design and 3D print a custom enclosure for the Raspberry Pi Pico W and the MAX6675 module. This would protect the electronics from heat and weather. The thermocouple probe would then be the only component placed inside the grill.
 
-Final Thoughts and Improvements:
+## Final Thoughts and Improvements:
 
     What Went Well: The project was relatively simple to assemble thanks to the solderless breadboard and the user-friendly MicroPython libraries. The Raspberry Pi Pico W's built-in Wi-Fi made the IoT aspect straightforward.
 
@@ -226,3 +230,10 @@ Final Thoughts and Improvements:
         Local Display: An OLED or LCD screen could be added to display the temperature directly on the device, so you don't always have to check your phone.
 
 Overall, this project is an excellent introduction to building a practical IoT device and provides a solid foundation for more complex projects in the future.
+
+
+
+
+
+
+PYCAD!!!!

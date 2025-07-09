@@ -1,6 +1,6 @@
-Smart Grill Master: A Wi-Fi-Enabled Grill Thermometer
+# Smart Grill Master: A Wi-Fi-Enabled Grill Thermometer
 
-By: Henry Shafer (hs223nr)
+### By: Henry Shafer (hs223nr)
 
 This project walks you through creating a Wi-Fi-connected thermometer for your grill. Using a Raspberry Pi Pico W and a K-Type thermocouple, this device will measure the internal temperature of your grill and send the data to a cloud-based dashboard. This allows you to monitor your grill's temperature remotely from your phone or computer, ensuring your food is cooked to perfection every time.
 
@@ -8,7 +8,7 @@ Project overview: Building a device to measure grill temperature and notify user
 Time to complete: 2-3 hours
 Cost: $30-50
 
-Objective
+## Objective
 
 The main goal of this project is to create a reliable and accurate way to monitor the temperature of a grill remotely.
 
@@ -18,7 +18,7 @@ The main goal of this project is to create a reliable and accurate way to monito
 
     Data Insights: By logging temperature data over time, you can analyze your grill's heating patterns, identify hot spots, and understand how different factors like charcoal arrangement or lid placement affect the cooking temperature. This will help you achieve more consistent and predictable cooking results. You can also set up alerts to notify you when the grill reaches a specific temperature, so you know exactly when to start cooking or when your food is ready.
 
-Materials
+## Materials
 
 Here is a list of the components needed for this project.
 
@@ -77,11 +77,11 @@ To program the Raspberry Pi Pico W, we'll use the Thonny IDE, which is a beginne
 
         Search for micropython-max6675 and click Install. This library will make it easy to read data from our temperature sensor.
 
-Putting Everything Together
+## Putting Everything Together
 
 Now, let's wire up the components. The connections are straightforward since we are using a breadboard.
 
-Wiring Instructions:
+### Wiring Instructions:
 
 Connect the MAX6675 module to the Raspberry Pi Pico W as follows:
 
@@ -97,13 +97,13 @@ Connect the MAX6675 module to the Raspberry Pi Pico W as follows:
 
 Finally, connect the two pins from the K-Type thermocouple to the screw terminal on the MAX6675 module. The polarity doesn't matter for the screw terminals.
 
-Circuit Diagram:
+## Circuit Diagram:
 
 Here is a diagram to help you visualize the connections:
 
 This setup is intended for development and prototyping. For a production version, you would want to solder the components onto a permanent protoboard and place the Pico W and MAX6675 module in a protective case to shield them from the elements and the heat of the grill.
 
-Platform
+## Platform
 
 For this project, we'll use Adafruit as our IoT platform. It's a great choice for beginners because it offers a user-friendly interface, clear documentation, and a free educational license that provides enough credits for this project.
 
@@ -111,7 +111,7 @@ For this project, we'll use Adafruit as our IoT platform. It's a great choice fo
 
     Why Adafruit? The platform has excellent support for MicroPython and the Raspberry Pi Pico W. Their documentation provides clear examples, which simplifies the process of sending data from our device to the cloud. The ability to quickly build a dashboard without any front-end coding makes it ideal for this project.
 
-The Code
+## The Code
 
 The code for this project is written in MicroPython. The core functionalities are connecting to your Wi-Fi network, reading the temperature from the sensor, and sending it to Adafruit.
 

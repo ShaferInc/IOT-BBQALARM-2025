@@ -1,6 +1,6 @@
 Smart Grill Master: A Wi-Fi-Enabled Grill Thermometer
 
-By: [Your Name] ([Your Student Credentials])
+By: Henry Shafer (hs223nr)
 
 This project walks you through creating a Wi-Fi-connected thermometer for your grill. Using a Raspberry Pi Pico W and a K-Type thermocouple, this device will measure the internal temperature of your grill and send the data to a cloud-based dashboard. This allows you to monitor your grill's temperature remotely from your phone or computer, ensuring your food is cooked to perfection every time.
 

@@ -88,6 +88,9 @@ Connect the MAX6675 module to the Raspberry Pi Pico W as follows:
 
 Finally, connect the two pins from the K-Type thermocouple to the screw terminal on the MAX6675 module. The polarity doesn't matter for the screw terminals.
 
+![image](/media/picopic1.png)
+![image](/media/picopic2.png)
+
 ## Circuit Diagram:
 
 Here is a diagram to help you visualize the connections:

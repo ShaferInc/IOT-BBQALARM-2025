@@ -107,6 +107,9 @@ Functionality: Adafruit allows you to easily create dashboards with widgets like
 
 Why Adafruit? The platform has excellent support for MicroPython and the Raspberry Pi Pico W. Their documentation provides clear examples, which simplifies the process of sending data from our device to the cloud. The ability to quickly build a dashboard without any front-end coding makes it ideal for this project.
 
+![image](/media/picopic1.png)
+![image](/media/picopic2.png)
+
 ## The Code
 
 The code for this project is written in MicroPython. The core functionalities are connecting to your Wi-Fi network, reading the temperature from the sensor, and sending it to Adafruit.
@@ -196,6 +199,9 @@ Dashboard Creation: In Adafruit, you can create a new dashboard and add widgets.
 Data Retention: On the Adafruit free tier, data is typically stored for one month. For longer-term data storage, you would need to upgrade to a paid plan.
 
 Automation/Triggers: Adafruit allows you to create triggers. For example, you can set up a rule to send you an email or a push notification when the temperature variable exceeds a certain value (e.g., 350°F), letting you know the grill is preheated and ready for cooking.
+
+![image](/media/dashpic.png)
+![image](/media/feedpic.png)
 
 ## Example Dashboard:
 

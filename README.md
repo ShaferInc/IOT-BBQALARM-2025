@@ -13,28 +13,35 @@ Cost: $30-50
 
 The main goal of this project is to create a reliable and accurate way to monitor the temperature of a grill remotely.
 
-Why this project? Have you ever undercooked or overcooked your food on the grill? This project solves that problem by providing temperature readings sent directly to a device of your choice. It's a practical application of IoT technology that can improve your cooking skills.
+#### Why this project? 
+Have you ever undercooked or overcooked your food on the grill? This project solves that problem by providing temperature readings sent directly to a device of your choice. It's a practical application of IoT technology that can improve your cooking skills.
 
-Purpose: The device will read the high temperatures inside a grill, which standard food thermometers can't withstand for long periods. It will then transmit this data over Wi-Fi to a cloud platform.
+#### Purpose: 
+The device will read the high temperatures inside a grill, which standard food thermometers can't withstand for long periods. It will then transmit this data over Wi-Fi to a cloud platform.
 
-Data Insights: By logging temperature data over time, you can analyze your grill's heating patterns, identify hot spots, and understand how different factors like charcoal arrangement or lid placement affect the cooking temperature. This will help you achieve more consistent and predictable cooking results. You can also set up alerts to notify you when the grill reaches a specific temperature, so you know exactly when to start cooking or when your food is ready.
+#### Data Insights: 
+By logging temperature data over time, you can analyze your grill's heating patterns, identify hot spots, and understand how different factors like charcoal arrangement or lid placement affect the cooking temperature. This will help you achieve more consistent and predictable cooking results. You can also set up alerts to notify you when the grill reaches a specific temperature, so you know exactly when to start cooking or when your food is ready.
 
 ## Materials
 Here is a list of the components needed for this project:
 
-Raspberry Pi Pico W with Pre-Soldered Headers: This is the microcontroller that will serve as the brain of our project. It has built-in Wi-Fi, which is perfect for our IoT application.
+#### Raspberry Pi Pico W with Pre-Soldered Headers:
+This is the microcontroller that will serve as the brain of our project. It has built-in Wi-Fi, which is perfect for our IoT application.
 Where to buy: Amazon
 Cost: $10 - $15.
 
-HiLetgo MAX6675 Module + K-Type Thermocouple: The K-Type thermocouple is a sensor capable of measuring a wide range of temperatures (0°C to 500°C for this model), making it ideal for a grill. The MAX6675 module is an amplifier that converts the thermocouple's analog signal into a digital one that our Pico W can read. WARNING-Frequently Faulty
+#### HiLetgo MAX6675 Module + K-Type Thermocouple:
+The K-Type thermocouple is a sensor capable of measuring a wide range of temperatures (0°C to 500°C for this model), making it ideal for a grill. The MAX6675 module is an amplifier that converts the thermocouple's analog signal into a digital one that our Pico W can read. WARNING-Frequently Faulty
 Where to buy: Amazon
 Cost: $5 - $10.
 
-Yunsailing Type K Thermocouple Probe: This is the specific probe that will be placed inside the grill to measure the heat.
+#### Yunsailing Type K Thermocouple Probe:
+This is the specific probe that will be placed inside the grill to measure the heat.
 Where to buy: Amazon
 Cost: $8 - $12.
 
-Solderless Breadboard and Jumper Wires: These will be used to connect all the electronic components without needing to solder.
+#### Solderless Breadboard and Jumper Wires:
+These will be used to connect all the electronic components without needing to solder.
 Where to buy: Included in most electronics starter kits on Amazon.
 Cost: $10 - $15 for a kit.
 
@@ -42,31 +49,31 @@ Micro USB Cable: To connect the Raspberry Pi Pico W to your computer for program
 
 ## Computer Setup
 
-To program the Raspberry Pi Pico W, we'll use the Thonny IDE, which is a beginner-friendly Python editor.
+    To program the Raspberry Pi Pico W, we'll use the Thonny IDE, which is a beginner-friendly Python editor.
 
-Install Thonny IDE: Download and install Thonny from the official website (thonny.org). It's available for Windows, Mac, and Linux.
+    Install Thonny IDE: Download and install Thonny from the official website (thonny.org). It's available for Windows, Mac, and Linux.
 
 ### Flash MicroPython Firmware:
 
-Download the latest MicroPython firmware for the Raspberry Pi Pico W. Go to the MicroPython downloads page and download the .uf2 file.
+    Download the latest MicroPython firmware for the Raspberry Pi Pico W. Go to the MicroPython downloads page and download the .uf2 file.
 
-Connect your Pico W to your computer via a micro USB cable while holding down the BOOTSEL button. The Pico will appear as a mass storage device named RPI-RP2.
+    Connect your Pico W to your computer via a micro USB cable while holding down the BOOTSEL button. The Pico will appear as a mass storage device named RPI-RP2.
 
-Drag and drop the downloaded .uf2 file onto the RPI-RP2 drive. The Pico will automatically reboot and will now be running MicroPython.
+    Drag and drop the downloaded .uf2 file onto the RPI-RP2 drive. The Pico will automatically reboot and will now be running MicroPython.
 
 ### Configure Thonny:
 
-Open Thonny. Go to Tools -> Options.
+    Open Thonny. Go to Tools -> Options.
 
-In the Interpreter tab, select MicroPython (Raspberry Pi Pico) as the interpreter.
+    In the Interpreter tab, select MicroPython (Raspberry Pi Pico) as the interpreter.
 
-The port should be detected automatically. If not, try reconnecting your Pico.
+    The port should be detected automatically. If not, try reconnecting your Pico.
 
 ### Install the MAX6675 Library:
 
-In Thonny, go to Tools -> Manage packages.
+    In Thonny, go to Tools -> Manage packages.
 
-Search for micropython-max6675 and click Install. This library will make it easy to read data from our temperature sensor.
+    Search for micropython-max6675 and click Install. This library will make it easy to read data from our temperature sensor.
 
 ## Putting Everything Together
 
@@ -103,9 +110,11 @@ This setup is intended for development and prototyping. For a production version
 
 For this project, we'll use Adafruit as our IoT platform. It's a great choice for beginners because it offers a user-friendly interface, clear documentation, and a free educational license that provides enough credits for this project.
 
-Functionality: Adafruit allows you to easily create dashboards with widgets like gauges, charts, and indicators to visualize your data in real-time. You can also set up events and alerts. For example, you can get an email or SMS notification when your grill reaches a certain temperature.
+#### Functionality 
+Adafruit allows you to easily create dashboards with widgets like gauges, charts, and indicators to visualize your data in real-time. You can also set up events and alerts. For example, you can get an email or SMS notification when your grill reaches a certain temperature.
 
-Why Adafruit? The platform has excellent support for MicroPython and the Raspberry Pi Pico W. Their documentation provides clear examples, which simplifies the process of sending data from our device to the cloud. The ability to quickly build a dashboard without any front-end coding makes it ideal for this project.
+#### Why Adafruit?
+The platform has excellent support for MicroPython and the Raspberry Pi Pico W. Their documentation provides clear examples, which simplifies the process of sending data from our device to the cloud. The ability to quickly build a dashboard without any front-end coding makes it ideal for this project.
 
 ## The Code
 
@@ -175,27 +184,32 @@ while True:
 
     time.sleep(30) # Send data every 30 seconds
 ```
-## Code Walk Through
 
 This code first sets up the Wi-Fi connection and initializes the temperature sensor. Then, in an infinite loop, it reads the temperature, converts it to Fahrenheit, and sends it to Adafruit in a JSON format.
 
-Transmitting the Data / Connectivity
+## Transmitting the Data / Connectivity
 
-Data Frequency: The data is sent to Adafruit every 30 seconds. This provides a good balance between real-time monitoring and not overwhelming the free tier of the Adafruit service.
+#### Data Frequency: 
+The data is sent to Adafruit every 30 seconds. This provides a good balance between real-time monitoring and not overwhelming the free tier of the Adafruit service.
 
-Wireless Protocol: We are using Wi-Fi (802.11n), which is built into the Raspberry Pi Pico W. This is suitable for home use where the grill is within range of your Wi-Fi router.
+#### Wireless Protocol: 
+We are using Wi-Fi (802.11n), which is built into the Raspberry Pi Pico W. This is suitable for home use where the grill is within range of your Wi-Fi router.
 
-Transport Protocol: The data is sent using an HTTP POST request (a webhook) to the Adafruit API. This is a simple and reliable way to send data to a web service. For a more advanced setup, MQTT would be a more efficient choice, as it is a lightweight messaging protocol designed for IoT devices and can reduce battery consumption. However, for this project, the simplicity of HTTP is sufficient.
+#### Transport Protocol:
+The data is sent using an HTTP POST request (a webhook) to the Adafruit API. This is a simple and reliable way to send data to a web service. For a more advanced setup, MQTT would be a more efficient choice, as it is a lightweight messaging protocol designed for IoT devices and can reduce battery consumption. However, for this project, the simplicity of HTTP is sufficient.
 
 ## Presenting the Data
 
 The data sent to Adafruit can be visualized on a custom dashboard.
 
-Dashboard Creation: In Adafruit, you can create a new dashboard and add widgets. For this project, a gauge widget is perfect for showing the current temperature, and a line chart can display the temperature trend over time.
+#### Dashboard Creation: 
+In Adafruit, you can create a new dashboard and add widgets. For this project, a gauge widget is perfect for showing the current temperature, and a line chart can display the temperature trend over time.
 
-Data Retention: On the Adafruit free tier, data is typically stored for one month. For longer-term data storage, you would need to upgrade to a paid plan.
+#### Data Retention: 
+On the Adafruit free tier, data is typically stored for one month. For longer-term data storage, you would need to upgrade to a paid plan.
 
-Automation/Triggers: Adafruit allows you to create triggers. For example, you can set up a rule to send you an email or a push notification when the temperature variable exceeds a certain value (e.g., 350°F), letting you know the grill is preheated and ready for cooking.
+#### Automation/Triggers:
+Adafruit allows you to create triggers. For example, you can set up a rule to send you an email or a push notification when the temperature variable exceeds a certain value (e.g., 350°F), letting you know the grill is preheated and ready for cooking.
 
 ![image](/media/dashpic.png)
 ![image](/media/feedpic.png)
@@ -216,7 +230,8 @@ For a more polished final product, you could design and 3D print a custom enclos
 
 ## Final Thoughts and Improvements:
 
-What Went Well: The project was relatively simple to assemble thanks to the solderless breadboard and the user-friendly MicroPython libraries. The Raspberry Pi Pico W's built-in Wi-Fi made the IoT aspect straightforward.
+### What Went Well: 
+The project was relatively simple to assemble thanks to the solderless breadboard and the user-friendly MicroPython libraries. The Raspberry Pi Pico W's built-in Wi-Fi made the IoT aspect straightforward.
 
 ### Potential Improvements:
 

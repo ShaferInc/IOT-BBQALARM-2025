@@ -107,9 +107,6 @@ Functionality: Adafruit allows you to easily create dashboards with widgets like
 
 Why Adafruit? The platform has excellent support for MicroPython and the Raspberry Pi Pico W. Their documentation provides clear examples, which simplifies the process of sending data from our device to the cloud. The ability to quickly build a dashboard without any front-end coding makes it ideal for this project.
 
-![image](/media/picopic1.png)
-![image](/media/picopic2.png)
-
 ## The Code
 
 The code for this project is written in MicroPython. The core functionalities are connecting to your Wi-Fi network, reading the temperature from the sensor, and sending it to Adafruit.

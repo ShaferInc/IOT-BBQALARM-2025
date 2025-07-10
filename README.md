@@ -125,64 +125,101 @@ You can find the complete code in this repository.
 Here is a snippet of the core logic:
 
 ```Python
-# main.py
 import machine
 import time
-import urequests
-from max6675 import MAX6675
 import network
+import urequests
+from machine import Pin
+import gc
 
-# --- Your Wi-Fi and Adafruit Credentials ---
-WIFI_SSID = "YOUR_WIFI_SSID"
-WIFI_PASS = "YOUR_WIFI_PASSWORD"
-TOKEN = "YOUR_Adafruit_TOKEN" 
-DEVICE_LABEL = "grill-thermometer"
+# --- Your Credentials ---
+WIFI_SSID = "wifi-name"
+WIFI_PASS = "wifi-password"
+AIO_USERNAME = "adafruit-username"
+AIO_KEY = "your-adafruit-api-key"
 
-# --- Pin Definitions ---
-sck = machine.Pin(10, machine.Pin.OUT)
-cs = machine.Pin(11, machine.Pin.OUT)
-so = machine.Pin(12, machine.Pin.IN)
-
-# --- Sensor Initialization ---
-thermo = MAX6675(sck, cs, so)
+# --- Adafruit IO Setup ---
+AIO_FEED_NAME = "your-adafruit-feed-name"
+AIO_URL = f"https://io.adafruit.com/api/v2/{AIO_USERNAME}/feeds/{AIO_FEED_NAME}/data"
+HEADERS = {"X-AIO-Key": AIO_KEY, "Content-Type": "application/json"}
 
 # --- Function to connect to Wi-Fi ---
 def connect_wifi(ssid, password):
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
-    wlan.connect(ssid, password)
-    while not wlan.isconnected():
-        print('Waiting for connection...')
-        time.sleep(1)
-    ip = wlan.ifconfig()[0]
-    print(f'Connected on {ip}')
-    return ip
+    if not wlan.isconnected():
+        print('Connecting to network...')
+        wlan.connect(ssid, password)
+        while not wlan.isconnected():
+            time.sleep(1)
+    print(f'Connected on {wlan.ifconfig()[0]}')
+    return wlan
 
-# --- Main Loop ---
+class MAX6675:
+    def __init__(self, sck, cs, so):
+        self.sck = sck
+        self.cs = cs
+        self.so = so
+        self.cs.value(1)
+
+    def read(self):
+        self.cs.value(0)
+        time.sleep_us(10)
+        value = 0
+        for _ in range(16):
+            self.sck.value(1)
+            time.sleep_us(1)
+            value = (value << 1) | self.so.value()
+            self.sck.value(0)
+            time.sleep_us(1)
+        self.cs.value(1)
+        
+        # Check for open circuit (thermocouple not connected)
+        if value & 0x4:
+            raise Exception("Thermocouple not connected.")
+            
+        # A value of 0 often indicates a wiring/power issue
+        if value == 0:
+            raise Exception("Sensor reading is zero, check wiring.")
+
+        return ((value >> 3) & 0xFFF) * 0.25
+# Pins
+sck = Pin(10, Pin.OUT)
+cs = Pin(13, Pin.OUT)
+so = Pin(12, Pin.IN)
+
+sensor = MAX6675(sck, cs, so)
+
 connect_wifi(WIFI_SSID, WIFI_PASS)
 
 while True:
     try:
-        temp_c = thermo.read()
+        temp_c = sensor.read()
         temp_f = temp_c * 9/5 + 32
-        print(f"Temperature: {temp_c}°C, {temp_f}°F")
+        print(f"Temperature: {temp_c:.2f}°C / {temp_f:.2f}°F")
+        
+        # Format the payload for Adafruit IO
+        payload = {"value": f"{temp_f:.2f}"} # Sending a single value is more standard
+        
+        # Post data and ensure the response is closed
+        response = urequests.post(url=AIO_URL, headers=HEADERS, json=payload)
+        
+        if response.status_code == 200:
+            print("Data sent successfully!")
+        else:
+            print(f"Failed to send data. Status: {response.status_code}, Response: {response.text}")
+            
+        response.close() # <-- CRITICAL: Close the response to free memory
 
-        # --- Build the JSON payload ---
-        payload = {VARIABLE_LABEL: {"value": temp_f}}
-
-        # --- Send data to Adafruit ---
-        url = f"https://industrial.api.Adafruit.com/api/v1.6/devices/{DEVICE_LABEL}"
-        headers = {"X-Auth-Token": TOKEN, "Content-Type": "application/json"}
-        
-        response = urequests.post(url=url, headers=headers, json=payload)
-        response.close()
-        
-        print("Data sent to Adafruit")
-        
     except Exception as e:
         print(f"Error: {e}")
+        # Optional: attempt to reconnect Wi-Fi if an error occurs
+        # connect_wifi(WIFI_SSID, WIFI_PASS)
 
-    time.sleep(30) # Send data every 30 seconds
+    # Clean up memory
+    gc.collect() # <-- CRITICAL: Run garbage collector
+    
+    time.sleep(10) # Increased delay to be respectful to the API server
 ```
 
 This code first sets up the Wi-Fi connection and initializes the temperature sensor. Then, in an infinite loop, it reads the temperature, converts it to Fahrenheit, and sends it to Adafruit in a JSON format.

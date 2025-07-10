@@ -102,7 +102,7 @@ Finally, connect the two pins from the K-Type thermocouple to the screw terminal
 
 Here is a diagram to help you visualize the connections:
 
-# TO DO !!!
+![image](/media/dwawin.png)
 
 This setup is intended for development and prototyping. For a production version, you would want to solder the components onto a permanent protoboard and place the Pico W and MAX6675 module in a protective case to shield them from the elements and the heat of the grill.
 

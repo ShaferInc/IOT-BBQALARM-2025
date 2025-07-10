@@ -89,7 +89,7 @@ Connect the MAX6675 module to the Raspberry Pi Pico W as follows:
 
     SCK (MAX6675) -> GP10 (Pico - Pin 14)
 
-    CS (MAX6675) -> GP11 (Pico - Pin 15)
+    CS (MAX6675) -> GP13 (Pico - Pin 17)
 
     SO (MAX6675) -> GP12 (Pico - Pin 16)
 

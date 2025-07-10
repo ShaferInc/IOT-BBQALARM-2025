@@ -53,6 +53,8 @@ Micro USB Cable: To connect the Raspberry Pi Pico W to your computer for program
 
     Install Thonny IDE: Download and install Thonny from the official website (thonny.org). It's available for Windows, Mac, and Linux.
 
+    Code and instructions are uploaded through github.
+
 ### Flash MicroPython Firmware:
 
     Download the latest MicroPython firmware for the Raspberry Pi Pico W. Go to the MicroPython downloads page and download the .uf2 file.
@@ -250,12 +252,7 @@ Adafruit allows you to create triggers. For example, you can set up a rule to se
 
 ![image](/media/dashpic.png)
 ![image](/media/feedpic.png)
-
-## Example Dashboard:
-
-Here is what your dashboard could look like in Adafruit:
-
-# TO DO !!!
+![image](/media/dash4.png)
 
 ## Finalizing the Design
 
